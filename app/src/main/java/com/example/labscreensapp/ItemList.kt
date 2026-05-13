@@ -24,8 +24,10 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ItemList(onItemClick: (Item) -> Unit, modifier: Modifier = Modifier) {
+    // Стан для тексту пошуку
     var searchQuery by remember { mutableStateOf("") }
     
+    // Фільтруємо список залежно від введеного тексту
     val filteredItems = remember(searchQuery) {
         if (searchQuery.isEmpty()) {
             sampleItems
@@ -35,6 +37,7 @@ fun ItemList(onItemClick: (Item) -> Unit, modifier: Modifier = Modifier) {
     }
 
     Column(modifier) {
+        // Поле пошуку
         OutlinedTextField(
             value = searchQuery,
             onValueChange = { searchQuery = it },
@@ -45,6 +48,7 @@ fun ItemList(onItemClick: (Item) -> Unit, modifier: Modifier = Modifier) {
                 .padding(16.dp)
         )
 
+        // Оптимізований список
         LazyColumn {
             items(filteredItems) { item ->
                 ListItem(
